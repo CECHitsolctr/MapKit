@@ -34,4 +34,6 @@
 
 - (void)addMapPins:(CDVInvokedUrlCommand *)command;
 
+//- (void)getMapCenterCoords:(CDVInvokedUrlCommand *)command;
+
 @end

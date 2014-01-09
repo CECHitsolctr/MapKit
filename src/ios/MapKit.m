@@ -42,10 +42,10 @@
     float y = self.webView.bounds.origin.y;
     BOOL atBottom = ([options objectForKey:@"atBottom"]) ? [[options objectForKey:@"atBottom"] boolValue] : NO;
     
-    NSString *heightString = [[NSString alloc] initWithFormat:@"Current Height: %f", [self.webView.bounds.size.height floatValue]];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Webview Height" message:heightString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alert show];
+//    NSString *heightString = [[NSString alloc] initWithFormat:@"Current Height: %f", [self.webView.bounds.size.height floatValue]];
+//    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Webview Height" message:heightString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alert show];
     
     if(atBottom) {
         y += self.webView.bounds.size.height - height;

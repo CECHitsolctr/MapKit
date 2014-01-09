@@ -144,7 +144,6 @@
         [self createViewWithOptions:command.arguments[0]];
 	}
     [self.mapView setMapType:MKMapTypeHybrid];
-    self.childView.bounds.height = 50;
 	self.childView.hidden = NO;
 	self.mapView.showsUserLocation = YES;
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];

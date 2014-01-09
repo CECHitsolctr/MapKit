@@ -35,17 +35,11 @@
     //This is the Designated Initializer
 
     // defaults
-//    float height = ([options objectForKey:@"height"]) ? [[options objectForKey:@"height"] floatValue] : self.webView.bounds.size.height/2;
-    float height = 50.0;
+    float height = ([options objectForKey:@"height"]) ? [[options objectForKey:@"height"] floatValue] : self.webView.bounds.size.height/2;
     float width = ([options objectForKey:@"width"]) ? [[options objectForKey:@"width"] floatValue] : self.webView.bounds.size.width;
     float x = self.webView.bounds.origin.x;
     float y = self.webView.bounds.origin.y;
     BOOL atBottom = ([options objectForKey:@"atBottom"]) ? [[options objectForKey:@"atBottom"] boolValue] : NO;
-    
-//    NSString *heightString = [[NSString alloc] initWithFormat:@"Current Height: %f", [self.webView.bounds.size.height floatValue]];
-//    
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Webview Height" message:heightString delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//    [alert show];
     
     if(atBottom) {
         y += self.webView.bounds.size.height - height;
@@ -150,6 +144,7 @@
         [self createViewWithOptions:command.arguments[0]];
 	}
     [self.mapView setMapType:MKMapTypeHybrid];
+    self.childView.bounds.height = 50;
 	self.childView.hidden = NO;
 	self.mapView.showsUserLocation = YES;
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];

@@ -51,6 +51,7 @@ public class MapKit extends CordovaPlugin {
                     boolean atBottom = false;
                     try {
                         height = options.getInt("height");
+                        width = options.getInt("width");
                         latitude = options.getDouble("lat");
                         longitude = options.getDouble("lon");
                         atBottom = options.getBoolean("atBottom");
@@ -58,8 +59,8 @@ public class MapKit extends CordovaPlugin {
                         LOG.e(TAG, "Error reading options");
                     }
 
-                    final int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(cordova.getActivity());
-                    if (resultCode == ConnectionResult.SUCCESS) {
+     //               final int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(cordova.getActivity());
+       //             if (resultCode == ConnectionResult.SUCCESS) {
                         mapView = new MapView(cordova.getActivity(),
                                 new GoogleMapOptions());
                         root = (ViewGroup) webView.getParent();
@@ -85,6 +86,8 @@ public class MapKit extends CordovaPlugin {
                         }
                         params.addRule(RelativeLayout.CENTER_HORIZONTAL,
                                 RelativeLayout.TRUE);
+                        params.addRule(RelativeLayout.width, width)
+                    
 
                         mapView.setLayoutParams(params);
                         mapView.onCreate(null);
@@ -98,21 +101,21 @@ public class MapKit extends CordovaPlugin {
                                         latitude, longitude), 15));
                         cCtx.success();
 
-                    } else if (resultCode == ConnectionResult.SERVICE_MISSING ||
-                               resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
-                               resultCode == ConnectionResult.SERVICE_DISABLED) {
-                        Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1,
-                                    new DialogInterface.OnCancelListener() {
-                                        @Override
-                                        public void onCancel(DialogInterface dialog) {
-                                            cCtx.error("com.google.android.gms.common.ConnectionResult " + resultCode);
-                                        }
-                                    }
-                                );
-                        dialog.show();
-                    }
+//                    } else if (resultCode == ConnectionResult.SERVICE_MISSING ||
+//                               resultCode == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED ||
+//                               resultCode == ConnectionResult.SERVICE_DISABLED) {
+//                        Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, cordova.getActivity(), 1,
+//                                    new DialogInterface.OnCancelListener() {
+//                                        @Override
+//                                        public void onCancel(DialogInterface dialog) {
+//                                            cCtx.error("com.google.android.gms.common.ConnectionResult " + resultCode);
+//                                        }
+//                                    }
+//                                );
+//                        dialog.show();
+//                    }
 
-                }
+                //}
             });
         } catch (Exception e) {
             e.printStackTrace();

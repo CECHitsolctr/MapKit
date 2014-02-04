@@ -187,12 +187,12 @@
     [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK] callbackId:command.callbackId];
 }
 
-//- (void)getMapCenterCoords:(CDVInvokedUrlCommand *)command {
-//    CDVPluginResult* pluginResult = nil;
-//    NSString *locationString = [[NSString alloc] initWithFormat: "%@, %@", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude];
-//    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: locationString];
-//    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-//}
+- (void)getMapCenterCoords:(CDVInvokedUrlCommand *)command {
+    CDVPluginResult* pluginResult = nil;
+    NSString *locationString = [[NSString alloc] initWithFormat: "%f, %f", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude];
+    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: locationString];
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
 
 //Might need this later?
 /*- (void) mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation

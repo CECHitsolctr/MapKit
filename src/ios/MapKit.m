@@ -46,14 +46,14 @@
     }
 
     self.childView = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,50)];
-    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(self.childView.bounds.origin.x, self.childView.bounds.origin.x, self.childView.bounds.size.width, self.childView.bounds.size.height)];
+    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(self.childView.bounds.origin.x, self.childView.bounds.origin.y, self.childView.bounds.size.width, self.childView.bounds.size.height)];
     self.mapView.delegate = self;
     self.mapView.multipleTouchEnabled   = YES;
     self.mapView.autoresizesSubviews    = YES;
     self.mapView.userInteractionEnabled = YES;
 	self.mapView.showsUserLocation = YES;
-	self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	self.childView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	//self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	//self.childView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
 
     CLLocationCoordinate2D centerCoord = { [[options objectForKey:@"lat"] floatValue] , [[options objectForKey:@"lon"] floatValue] };

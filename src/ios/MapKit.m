@@ -67,7 +67,11 @@
 	[self.childView addSubview:self.mapView];
 
 	[ [ [ self viewController ] view ] addSubview:self.childView];
-
+    
+    // Puts crosshair over the map
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"crosshair_orange.png"]];
+    [imageView setCenter:self.childView.center];
+    [self.childView addSubview:imageView];
 }
 
 - (void)destroyMap:(CDVInvokedUrlCommand *)command

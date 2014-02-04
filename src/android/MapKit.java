@@ -115,7 +115,7 @@ public class MapKit extends CordovaPlugin {
 //                        dialog.show();
 //                    }
 
-                //}
+                }
             });
         } catch (Exception e) {
             e.printStackTrace();

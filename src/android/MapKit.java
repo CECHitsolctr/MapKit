@@ -86,7 +86,7 @@ public class MapKit extends CordovaPlugin {
                         }
                         params.addRule(RelativeLayout.CENTER_HORIZONTAL,
                                 RelativeLayout.TRUE);
-                        params.addRule(RelativeLayout.width, width)
+                      //  params.addRule(RelativeLayout.width, width)
                     
 
                         mapView.setLayoutParams(params);

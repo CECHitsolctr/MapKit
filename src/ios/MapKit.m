@@ -45,7 +45,7 @@
         y += self.webView.bounds.size.height - height;
     }
 
-    self.childView = [[UIView alloc] initWithFrame:CGRectMake(0,0,50,50)];
+    self.childView = [[UIView alloc] initWithFrame:CGRectMake(x,y,width,height)];
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(self.childView.bounds.origin.x, self.childView.bounds.origin.y, self.childView.bounds.size.width, self.childView.bounds.size.height)];
     self.mapView.delegate = self;
     self.mapView.multipleTouchEnabled   = YES;

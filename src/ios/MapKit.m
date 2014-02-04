@@ -189,7 +189,7 @@
 
 - (void)getMapCenterCoords:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
-    NSString* locationString = [[NSString alloc] initWithFormat: @"{'lat:' '%f', 'long': '%f'}", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude];
+    NSString* locationString = [[NSString alloc] initWithFormat: @"%f, %f", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: locationString];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

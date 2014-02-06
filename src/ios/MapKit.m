@@ -73,7 +73,7 @@
     [self.childView addSubview:imageView];
     
 	[ [ [ self viewController ] view ] addSubview:self.childView];
-    [self.childView bringSubviewToFront:imageView];
+    //[self.childView bringSubviewToFront:imageView];
 }
 
 - (void)destroyMap:(CDVInvokedUrlCommand *)command

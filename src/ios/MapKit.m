@@ -48,7 +48,7 @@
     }
 
     self.childView = [[UIView alloc] initWithFrame:CGRectMake(x,y,width,height)];
-    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(x, y+50, width, height-50)];
+    self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(x, y, width, height)];
     self.mapView.delegate = self;
     self.mapView.multipleTouchEnabled   = YES;
     self.mapView.autoresizesSubviews    = YES;
@@ -76,7 +76,7 @@
     singleTap.numberOfTouchesRequired = 1;
     [imageView2 addGestureRecognizer:singleTap];
     [imageView2 setUserInteractionEnabled:YES];
-    [imageView2 setFrame:CGRectMake(0,0,self.childView.bounds.size.width,50)];
+    [imageView2 setFrame:CGRectMake(0,63,self.childView.bounds.size.width,50)];
     
     [self.childView addSubview:imageView2];
     

@@ -40,8 +40,8 @@
     float width = ([options objectForKey:@"width"]) ? [[options objectForKey:@"width"] floatValue] : self.webView.bounds.size.width;
     float x = ([options objectForKey:@"xOrigin"]) ? [[options objectForKey:@"xOrigin"] floatValue] : self.webView.bounds.origin.x;
     float y = ([options objectForKey:@"yOrigin"]) ? [[options objectForKey:@"yOrigin"] floatValue] : self.webView.bounds.origin.y;
-  //  NSString* page = ([options objectForKey:@"page"]) ? [options objectForKey:@"page"] : @"oldLocation";
-    NSString* page=@"oldLocation";
+    NSString* page = ([options objectForKey:@"page"]) ? [options objectForKey:@"page"] : @"oldLocation";
+   // NSString* page=@"oldLocation";
    // BOOL atBottom = ([options objectForKey:@"atBottom"]) ? [[options objectForKey:@"atBottom"] boolValue] : NO;
     BOOL atBottom = NO;
     

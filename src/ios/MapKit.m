@@ -129,7 +129,7 @@
 }
 
 -(void)bannerAdTapped:(UIGestureRecognizer *)gestureRecognizer {
-    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bannerAdClicked(\"%@\")",AdURL]];
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bannerAdClicked('%@')",AdURL]];
 }
 
 - (void)destroyMap:(CDVInvokedUrlCommand *)command

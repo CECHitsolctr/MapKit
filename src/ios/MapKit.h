@@ -17,6 +17,7 @@
 @property (nonatomic, retain) UIView* childView;
 @property (nonatomic, retain) MKMapView* mapView;
 @property (nonatomic, retain) UIButton*  imageButton;
+@property (strong, nonatomic) NSString* AdURL;
 
 - (void)createView;
 

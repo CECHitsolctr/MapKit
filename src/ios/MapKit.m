@@ -88,19 +88,20 @@
     [self.childView addSubview:imageView2];
     
     //puts textfield over the map if the page is newLocation
-    if ([page isEqualToString:@"newLocation"]) {
-        txtField = [[UITextField alloc] initWithFrame:CGRectMake(10, 125, 300, 40)];
-        txtField.borderStyle = UITextBorderStyleRoundedRect;
-        txtField.font = [UIFont systemFontOfSize:15];
-        txtField.placeholder = @"Nickname";
-        txtField.autocorrectionType = UITextAutocorrectionTypeNo;
-        txtField.keyboardType = UIKeyboardTypeDefault;
-        txtField.returnKeyType = UIReturnKeyDone;
-        txtField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        txtField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        txtField.delegate = self;
-        [self.childView addSubview:txtField];
-    }
+        if ([page isEqualToString:@"newLocation"]) {
+            self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(10, 125, 300, 40)];
+            self.txtField.borderStyle = UITextBorderStyleRoundedRect;
+            self.txtField.font = [UIFont systemFontOfSize:15];
+            self.txtField.placeholder = @"Nickname";
+            self.txtField.autocorrectionType = UITextAutocorrectionTypeNo;
+            self.txtField.keyboardType = UIKeyboardTypeDefault;
+            self.txtField.returnKeyType = UIReturnKeyDone;
+            self.txtField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            self.txtField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            self.txtField.delegate = self;
+            [self.childView addSubview:self.txtField];
+        }
+    
     
     
     
@@ -274,7 +275,7 @@
 
 (void)saveNewLocation:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
-    NSString* locationString = [[NSString alloc] initWithFormat: @"%f, %f, %@", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude,txtField.text];
+    NSString* locationString = [[NSString alloc] initWithFormat: @"%f, %f, %@", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude,self.txtField.text];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: locationString];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }

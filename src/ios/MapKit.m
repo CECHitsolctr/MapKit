@@ -40,7 +40,7 @@
     float width = ([options objectForKey:@"width"]) ? [[options objectForKey:@"width"] floatValue] : self.webView.bounds.size.width;
     float x = ([options objectForKey:@"xOrigin"]) ? [[options objectForKey:@"xOrigin"] floatValue] : self.webView.bounds.origin.x;
     float y = ([options objectForKey:@"yOrigin"]) ? [[options objectForKey:@"yOrigin"] floatValue] : self.webView.bounds.origin.y;
-   // NSString* page = ([options objectForKey:@"page"]) ? [options objectForKey:@"page"] : @"locationMap";
+    NSString* page = ([options objectForKey:@"page"]) ? [options objectForKey:@"page"] : @"locationMap";
    // BOOL atBottom = ([options objectForKey:@"atBottom"]) ? [[options objectForKey:@"atBottom"] boolValue] : NO;
     BOOL atBottom = NO;
     
@@ -70,7 +70,7 @@
     
     
     //Puts ad over the map
-     NSString* adImageURL=[self getAdURLAtCoordinateLat:[[options objectForKey:@"lat"] floatValue] Long:[[options objectForKey:@"lon"] floatValue] Page:@"oldLocation"];
+     NSString* adImageURL=[self getAdURLAtCoordinateLat:[[options objectForKey:@"lat"] floatValue] Long:[[options objectForKey:@"lon"] floatValue] Page:page];
     
     UIImage* adImage= [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:adImageURL]]];
     
@@ -128,7 +128,7 @@
 }
 
 -(void)bannerAdTapped:(UIGestureRecognizer *)gestureRecognizer {
-    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bannerAdClicked(%@)",AdURL]];
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bannerAdClicked(\"%@\")",AdURL]];
 }
 
 - (void)destroyMap:(CDVInvokedUrlCommand *)command

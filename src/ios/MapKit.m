@@ -286,10 +286,10 @@
 
 -(void)centerMapOnLocation:(CDVInvokedUrlCommand *)command {
     
-    NSDictionary* options2 = command.arguments[0];
+  //  NSDictionary* options2 = command.arguments[0];
     
-    CLLocationCoordinate2D centerCoord = { [[options2 objectForKey:@"lat"] floatValue] , [[options2 objectForKey:@"lon"] floatValue] };
-	CLLocationDistance diameter = [[options2 objectForKey:@"diameter"] floatValue];
+    CLLocationCoordinate2D centerCoord = { 39 , -84 };
+	CLLocationDistance diameter = 10000;
     
 	MKCoordinateRegion region=[self.mapView regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord,
                                                                                                 diameter*(height / self.webView.bounds.size.width),

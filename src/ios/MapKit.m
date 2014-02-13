@@ -288,8 +288,8 @@
     
     NSDictionary* options2 = command.arguments[0];
     
-    CLLocationCoordinate2D centerCoord = { [[options objectForKey:@"lat"] floatValue] , [[options objectForKey:@"lon"] floatValue] };
-	CLLocationDistance diameter = [[options objectForKey:@"diameter"] floatValue];
+    CLLocationCoordinate2D centerCoord = { [[options2 objectForKey:@"lat"] floatValue] , [[options2 objectForKey:@"lon"] floatValue] };
+	CLLocationDistance diameter = [[options2 objectForKey:@"diameter"] floatValue];
     float height = ([options2 objectForKey:@"height"]) ? [[options2 objectForKey:@"height"] floatValue] : self.webView.bounds.size.height/2;
     
 	MKCoordinateRegion region=[self.mapView regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord,

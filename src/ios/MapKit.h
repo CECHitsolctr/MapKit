@@ -9,7 +9,7 @@
 
 #import <Cordova/CDVPlugin.h>
 
-@interface MapKitView : CDVPlugin <MKMapViewDelegate,UITextFieldDelegate>
+@interface MapKitView : CDVPlugin <MKMapViewDelegate>
 {
 }
 

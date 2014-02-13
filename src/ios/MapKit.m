@@ -67,7 +67,7 @@
 	MKCoordinateRegion region=[ self.mapView regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord,
                                                                                                 diameter*(height / self.webView.bounds.size.width),
                                                                                                 diameter*(height / self.webView.bounds.size.width))];
-    mapView.view.tag=1;
+    self.mapView.view.tag=1;
     [self.mapView setRegion:region animated:YES];
 	[self.childView addSubview:self.mapView];
     
@@ -286,6 +286,7 @@
 }
 
 -(void)centerMapOnLocation:(CDVInvokedUrlCommand *)command {
+    
     MKMapView* mapViewReference = (MKMapView*)[self.childView viewWithTag:1];
     
     NSDictionary *options2 = [[NSDictionary alloc] init];

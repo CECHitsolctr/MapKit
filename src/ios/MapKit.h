@@ -36,10 +36,10 @@
 
 - (void)addMapPins:(CDVInvokedUrlCommand *)command;
 
-- (void)getMapCenterCoords:(CDVInvokedUrlCommand *)command;
-
 - (void)saveNewLocation:(CDVInvokedUrlCommand *)command;
 
 - (void)focusOnTextField:(CDVInvokedUrlCommand *)command;
+
+- (void)centerMapOnLocation:(CDVInvokedUrlCommand *)command;
 
 @end

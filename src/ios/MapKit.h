@@ -9,7 +9,7 @@
 
 #import <Cordova/CDVPlugin.h>
 
-@interface MapKitView : CDVPlugin <MKMapViewDelegate>
+@interface MapKitView : CDVPlugin <MKMapViewDelegate,UITextFieldDelegate>
 {
 }
 
@@ -39,5 +39,7 @@
 - (void)getMapCenterCoords:(CDVInvokedUrlCommand *)command;
 
 - (void)saveNewLocation:(CDVInvokedUrlCommand *)command;
+
+- (void)focusOnTextField:(CDVInvokedUrlCommand *)command;
 
 @end

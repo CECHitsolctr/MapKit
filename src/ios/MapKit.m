@@ -98,6 +98,7 @@
             self.txtField.returnKeyType = UIReturnKeyDone;
             self.txtField.clearButtonMode = UITextFieldViewModeWhileEditing;
             self.txtField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            self.txtField.delegate=self;
             [self.childView addSubview:txtField];
         }
     
@@ -146,6 +147,11 @@
 
 -(void)bannerAdTapped:(UIGestureRecognizer *)gestureRecognizer {
     [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bannerAdClicked('%@')",AdURL]];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (void)destroyMap:(CDVInvokedUrlCommand *)command
@@ -275,8 +281,13 @@
 - (void)saveNewLocation:(CDVInvokedUrlCommand *)command {
     CDVPluginResult* pluginResult = nil;
     NSString* locationString = [[NSString alloc] initWithFormat: @"%f, %f, %@", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude,self.txtField.text];
+    [self.txtField resignFirstResponder];
     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString: locationString];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
+- (void)focusOnTextField:(CDVInvokedUrlCommand *)command {
+    [self.txtField becomeFirstResponder];
 }
 
 //Might need this later?

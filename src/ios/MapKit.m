@@ -98,7 +98,6 @@
             self.txtField.returnKeyType = UIReturnKeyDone;
             self.txtField.clearButtonMode = UITextFieldViewModeWhileEditing;
             self.txtField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            self.txtField.delegate = self;
             [self.childView addSubview:self.txtField];
         }
     

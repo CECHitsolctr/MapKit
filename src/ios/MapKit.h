@@ -18,7 +18,7 @@
 @property (nonatomic, retain) MKMapView* mapView;
 @property (nonatomic, retain) UIButton*  imageButton;
 @property (strong, nonatomic) NSString* AdURL;
-@property (strong, nonatomic) IBOutlet UITextField *txtField;
+//@property (strong, nonatomic) IBOutlet UITextField *txtField;
 
 - (void)createView;
 

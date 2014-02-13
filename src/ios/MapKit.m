@@ -286,9 +286,7 @@
 
 -(void)centerMapOnLocation:(CDVInvokedUrlCommand *)command {
     
-    NSDictionary *options2 = [[NSDictionary alloc] init];
-    
-    options2 = command.arguments[0];
+    NSDictionary* options2 = [[NSDictionary alloc] initWithDictionary:command.arguments[0]];
     
     CLLocationCoordinate2D centerCoord = { [[options2 objectForKey:@"lat"] floatValue] , [[options2 objectForKey:@"lon"] floatValue] };
 	CLLocationDistance diameter = [[options2 objectForKey:@"diameter"] floatValue];

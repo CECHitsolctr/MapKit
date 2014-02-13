@@ -67,7 +67,6 @@
 	MKCoordinateRegion region=[ self.mapView regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord,
                                                                                                 diameter*(height / self.webView.bounds.size.width),
                                                                                                 diameter*(height / self.webView.bounds.size.width))];
-    self.mapView.view.tag=1;
     [self.mapView setRegion:region animated:YES];
 	[self.childView addSubview:self.mapView];
     
@@ -287,8 +286,6 @@
 
 -(void)centerMapOnLocation:(CDVInvokedUrlCommand *)command {
     
-    MKMapView* mapViewReference = (MKMapView*)[self.childView viewWithTag:1];
-    
     NSDictionary *options2 = [[NSDictionary alloc] init];
     
     options2 = command.arguments[0];
@@ -296,10 +293,10 @@
     CLLocationCoordinate2D centerCoord = { [[options2 objectForKey:@"lat"] floatValue] , [[options2 objectForKey:@"lon"] floatValue] };
 	CLLocationDistance diameter = [[options2 objectForKey:@"diameter"] floatValue];
     
-	MKCoordinateRegion region=[mapViewReference regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord,
+	MKCoordinateRegion region=[self.mapView regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord,
                                                                                                 diameter*(height / self.webView.bounds.size.width),
                                                                                                 diameter*(height / self.webView.bounds.size.width))];
-    [mapViewReference setRegion:region animated:YES];
+    [self.mapView setRegion:region animated:YES];
     
 }
 

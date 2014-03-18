@@ -6,8 +6,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import <Cordova/CDVPlugin.h>
+
+#import "SVProgressHUD.h"
 
 @interface MapKitView : CDVPlugin <MKMapViewDelegate,UITextFieldDelegate>
 {
@@ -41,5 +44,9 @@
 - (void)focusOnTextField:(CDVInvokedUrlCommand *)command;
 
 - (void)centerMapOnLocation:(CDVInvokedUrlCommand *)command;
+
+- (void)showLoadingView:(CDVInvokedUrlCommand *)command;
+
+- (void)hideLoadingView:(CDVInvokedUrlCommand *)command;
 
 @end

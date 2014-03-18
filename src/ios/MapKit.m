@@ -285,11 +285,11 @@
 }
 
 - (void)showLoadingView:(CDVInvokedUrlCommand *)command {
-    [SVProgressHUD showWithStatus:@"Saving Location" maskType:SVProgressHUDMaskTypeBlack];
+//    [SVProgressHUD showWithStatus:@"Saving Location" maskType:SVProgressHUDMaskTypeBlack];
 }
 
 - (void)hideLoadingView:(CDVInvokedUrlCommand *)command {
-    [SVProgressHUD dismiss];
+//    [SVProgressHUD dismiss];
 }
 
 -(void)centerMapOnLocation:(CDVInvokedUrlCommand *)command {

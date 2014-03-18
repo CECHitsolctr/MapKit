@@ -6,11 +6,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import <QuartzCore/QuartzCore.h>
 
 #import <Cordova/CDVPlugin.h>
-
-#import "SVProgressHUD.h"
 
 @interface MapKitView : CDVPlugin <MKMapViewDelegate,UITextFieldDelegate>
 {

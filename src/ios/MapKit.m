@@ -284,6 +284,14 @@
     [self.txtField becomeFirstResponder];
 }
 
+- (void)showLoadingView:(CDVInvokedUrlCommand *)command {
+    [SVProgressHUD showWithStatus:@"Saving Location" maskType:SVProgressHUDMaskTypeBlack];
+}
+
+- (void)hideLoadingView:(CDVInvokedUrlCommand *)command {
+    [SVProgressHUD dismiss];
+}
+
 -(void)centerMapOnLocation:(CDVInvokedUrlCommand *)command {
     
     NSDictionary* options2 = command.arguments[0];

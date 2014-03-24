@@ -117,7 +117,7 @@
 }
 
 - (void)initPlugin:(CDVInvokedUrlCommand *)command {
-    MKMapView *map = [[MKMapView alloc] init];
+    self.mapView = [[MKMapView alloc] init];
 }
 
 - (NSString*)getAdURLAtCoordinateLat:(double)lat Long:(double)lng Page:(NSString*)page {

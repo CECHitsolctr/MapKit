@@ -116,6 +116,10 @@
     
 }
 
+- (void)initPlugin:(CDVInvokedUrlCommand *)command {
+    MKMapView *map = [[MKMapView alloc] init];
+}
+
 - (NSString*)getAdURLAtCoordinateLat:(double)lat Long:(double)lng Page:(NSString*)page {
     //send the get request
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.connectedafield.com/api/ad?page=%@&lat=%f&lng=%f",page,lat,lng]];

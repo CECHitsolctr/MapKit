@@ -49,4 +49,6 @@
 
 - (void)hideLoadingView:(CDVInvokedUrlCommand *)command;
 
+- (void)initPlugin:(CDVInvokedUrlCommand *)command;
+
 @end

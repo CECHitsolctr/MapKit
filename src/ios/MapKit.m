@@ -89,7 +89,7 @@
     
     //puts textfield over the map if the page is newLocation
     if ([page isEqualToString:@"newLocation"]) {
-        self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(10, 125, 300, 40)];
+        self.txtField = [[UITextField alloc] initWithFrame:CGRectMake(10, 145, 300, 40)];
         self.txtField.borderStyle = UITextBorderStyleRoundedRect;
         self.txtField.font = [UIFont systemFontOfSize:15];
         self.txtField.placeholder = @"Nickname";
@@ -118,6 +118,7 @@
 
 - (void)initPlugin:(CDVInvokedUrlCommand *)command {
     self.mapView = [[MKMapView alloc] init];
+    NSLog(@"Loading the plugin");
 }
 
 - (NSString*)getAdURLAtCoordinateLat:(double)lat Long:(double)lng Page:(NSString*)page {

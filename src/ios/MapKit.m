@@ -9,13 +9,6 @@
 
 @implementation MapKitView
 
-@synthesize buttonCallback;
-@synthesize childView;
-@synthesize mapView;
-@synthesize imageButton;
-@synthesize AdURL;
-@synthesize txtField;
-
 
 -(CDVPlugin*) initWithWebView:(UIWebView*)theWebView
 {
@@ -43,7 +36,7 @@
     float y = ([options objectForKey:@"yOrigin"]) ? [[options objectForKey:@"yOrigin"] floatValue] : self.webView.bounds.origin.y;
     NSString* page = ([options objectForKey:@"page"]) ? [options objectForKey:@"page"] : @"oldLocation";
     
-    y += self.webView.bounds.size.height - height;
+//    y += self.webView.bounds.size.height - height;
     
     self.childView = [[UIView alloc] initWithFrame:CGRectMake(x,y,width,height)];
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(x, y, width, height)];
@@ -64,35 +57,29 @@
     [self.childView addSubview:self.mapView];
     
     
+    self.adImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_ad"]];
     
-    //Puts ad over the map
-//    NSString* adImageURL = [self getAdURLAtCoordinateLat:[[options objectForKey:@"lat"] floatValue] Long:[[options objectForKey:@"lon"] floatValue] Page:page];
-//    
-//    UIImage* adImage= [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:adImageURL]]];
+    self.AdURL = @"http://www.connectedafield.com/marketing/contact";
     
-    // Set ad to default image while new ad is retrieved in the background
-    UIImageView *adImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_ad"]];
-    
-    AdURL = @"http://www.connectedafield.com/marketing/contact";
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        NSString* adImageURL = [self getAdURLAtCoordinateLat:[[options objectForKey:@"lat"] floatValue] Long:[[options objectForKey:@"lon"] floatValue] Page:page];
+    [self getAdForLocation:@{@"lat": [NSNumber numberWithFloat: [[options objectForKey:@"lat"] floatValue]], @"lng": [NSNumber numberWithFloat: [[options objectForKey:@"lon"] floatValue]], @"page": @"oldLocation"} completion:^(NSString *imageURL, NSString *adURL) {
+        self.AdURL = adURL;
         
-        if (adImageURL) {
-            [adImageView setImage: [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:adImageURL]]]];
-            AdURL = adImageURL;
+        if (imageURL) {
+            self.adImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]]];
+        } else {
+            self.adImageView.image = [UIImage imageNamed:@"ad"];
         }
-    });
+    }];
     
     //add the tap recognizer to the image and call the javascript file to open the page
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bannerAdTapped:)];
     singleTap.numberOfTapsRequired = 1;
     singleTap.numberOfTouchesRequired = 1;
-    [adImageView addGestureRecognizer:singleTap];
-    [adImageView setUserInteractionEnabled:YES];
-    [adImageView setFrame:CGRectMake(0,63,self.childView.bounds.size.width,50)];
+    [self.adImageView addGestureRecognizer:singleTap];
+    [self.adImageView setUserInteractionEnabled:YES];
+    [self.adImageView setFrame:CGRectMake(0,63,self.childView.bounds.size.width,50)];
     
-    [self.childView addSubview:adImageView];
+    [self.childView addSubview:self.adImageView];
     
     //puts textfield over the map if the page is newLocation
     if ([page isEqualToString:@"newLocation"]) {
@@ -105,21 +92,17 @@
         self.txtField.returnKeyType = UIReturnKeyDone;
         self.txtField.clearButtonMode = UITextFieldViewModeWhileEditing;
         self.txtField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        self.txtField.delegate=self;
-        [self.childView addSubview:txtField];
+        self.txtField.delegate = self;
+        [self.childView addSubview:self.txtField];
     }
     
     // Puts crosshair over the map
-    UIImageView *imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"crosshair_orange"]];
-    [imageView setCenter:self.mapView.center];
+    UIImageView *crosshairView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"crosshair_orange"]];
+    [crosshairView setCenter:self.mapView.center];
     
-    [self.childView addSubview:imageView];
+    [self.childView addSubview:crosshairView];
     
-    [ [ [ self viewController ] view ] addSubview:self.childView];
-    
-    
-    //[self.childView bringSubviewToFront:imageView];
-    
+    [[[self viewController] view] addSubview:self.childView];
 }
 
 - (void)initPlugin:(CDVInvokedUrlCommand *)command {
@@ -127,32 +110,27 @@
     NSLog(@"Loading the plugin");
 }
 
-- (NSString*)getAdURLAtCoordinateLat:(double)lat Long:(double)lng Page:(NSString*)page {
+- (void)getAdForLocation:(NSDictionary *)location completion:(void (^)(NSString *imageURL, NSString *adURL))block {
     //send the get request
-    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.connectedafield.com/api/ad?page=%@&lat=%f&lng=%f",page,lat,lng]];
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.connectedafield.com/api/ad?page=%@&lat=%@&lng=%@",[location objectForKey:@"page"], [location objectForKey:@"lat"], [location objectForKey:@"lng"]]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setURL:url];
     [request setHTTPMethod:@"GET"];
     
     //retreive the data from the server
-    NSError *error;
-    NSURLResponse *response;
-    NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    NSString* adImageURL = [[NSString alloc] init];
-    //if there is no response from the server, display the defalut ad
-    if (responseData == nil) {
-        AdURL = @"http://www.connectedafield.com/marketing/contact";
-        return nil;
-    } else {
-        //parse out the json data
-        NSError* error1;
-        NSDictionary* jsonObjectFromServer = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error1];
-        
-        AdURL = [jsonObjectFromServer objectForKey:@"url"];
-        
-        return [jsonObjectFromServer objectForKey:@"image"];
-    }
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (connectionError) {
+            block(nil, @"http://www.connectedafield.com/marketing/contact");
+        } else {
+            NSError *error = nil;
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+            if (error) {
+                block(nil, @"http://www.connectedafield.com/marketing/contact");
+            } else {
+                block([result objectForKey:@"image"], [result objectForKey:@"url"]);
+            }
+        }
+    }];
 }
 
 -(void)bannerAdTapped:(UIGestureRecognizer *)gestureRecognizer {
@@ -171,7 +149,7 @@
 		[ self.mapView removeAnnotations:mapView.annotations];
 		[ self.mapView removeFromSuperview];
 
-		mapView = nil;
+		self.mapView = nil;
 	}
 	if(self.imageButton)
 	{
@@ -431,7 +409,7 @@
 		[ self.imageButton removeFromSuperview];
         self.imageButton = nil;
 	}
-	if(childView)
+	if(self.childView)
 	{
 		[ self.childView removeFromSuperview];
         self.childView = nil;

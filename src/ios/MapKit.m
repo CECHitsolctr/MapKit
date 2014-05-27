@@ -134,7 +134,7 @@
 }
 
 -(void)bannerAdTapped:(UIGestureRecognizer *)gestureRecognizer {
-    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bannerAdClicked('%@')",AdURL]];
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"bannerAdClicked('%@')", self.AdURL]];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -400,7 +400,7 @@
 {
     if (self.mapView)
 	{
-		[ self.mapView removeAnnotations:mapView.annotations];
+		[ self.mapView removeAnnotations:self.mapView.annotations];
 		[ self.mapView removeFromSuperview];
         self.mapView = nil;
 	}

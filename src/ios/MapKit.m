@@ -29,16 +29,17 @@
 
     //This is the Designated Initializer
     
+    NSLog(@"%@", options);
+    
     // defaults
-    float height = ([options objectForKey:@"height"]) ? [[options objectForKey:@"height"] floatValue] : self.webView.bounds.size.height/2;
-    float width = ([options objectForKey:@"width"]) ? [[options objectForKey:@"width"] floatValue] : self.webView.bounds.size.width;
-    float x = ([options objectForKey:@"xOrigin"]) ? [[options objectForKey:@"xOrigin"] floatValue] : self.webView.bounds.origin.x;
-    float y = ([options objectForKey:@"yOrigin"]) ? [[options objectForKey:@"yOrigin"] floatValue] : self.webView.bounds.origin.y;
-    NSString* page = ([options objectForKey:@"page"]) ? [options objectForKey:@"page"] : @"oldLocation";
+    float height = [options objectForKey:@"height"] ? [[options objectForKey:@"height"] floatValue] : self.webView.bounds.size.height/2;
+    float width = [options objectForKey:@"width"] ? [[options objectForKey:@"width"] floatValue] : self.webView.bounds.size.width;
+    float x = [options objectForKey:@"xOrigin"] ? [[options objectForKey:@"xOrigin"] floatValue] : self.webView.bounds.origin.x;
+    float y = [options objectForKey:@"yOrigin"] ? [[options objectForKey:@"yOrigin"] floatValue] : self.webView.bounds.origin.y;
+    NSString *fallbackLink = [options objectForKey:@"fallbackLink"] ? [options objectForKey:@"fallbackLink"] : @"http://www.connectedafield.com/marketing/contact";
+    NSString *page = [options objectForKey:@"page"] ? [options objectForKey:@"page"] : @"oldLocation";
     
-//    y += self.webView.bounds.size.height - height;
-    
-    self.childView = [[UIView alloc] initWithFrame:CGRectMake(x,y,width,height)];
+    self.childView = [[UIView alloc] initWithFrame:CGRectMake(x, y, width, height)];
     self.mapView = [[MKMapView alloc] initWithFrame:CGRectMake(x, y, width, height)];
     self.mapView.delegate = self;
     self.mapView.multipleTouchEnabled   = YES;
@@ -50,18 +51,17 @@
     CLLocationCoordinate2D centerCoord = { [[options objectForKey:@"lat"] floatValue] , [[options objectForKey:@"lon"] floatValue] };
     CLLocationDistance diameter = [[options objectForKey:@"diameter"] floatValue];
     
-    MKCoordinateRegion region=[ self.mapView regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord,
-                                                                                                diameter*(height / self.webView.bounds.size.width),
-                                                                                                diameter*(height / self.webView.bounds.size.width))];
+    MKCoordinateRegion region=[self.mapView regionThatFits: MKCoordinateRegionMakeWithDistance(centerCoord, diameter * (height / self.webView.bounds.size.width), diameter * (height / self.webView.bounds.size.width))];
+    
     [self.mapView setRegion:region animated:YES];
     [self.childView addSubview:self.mapView];
     
-    
     self.adImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"empty_ad"]];
     
-    self.AdURL = @"http://www.connectedafield.com/marketing/contact";
+    self.AdURL = fallbackLink;
     
     [self getAdForLocation:@{@"lat": [NSNumber numberWithFloat: [[options objectForKey:@"lat"] floatValue]], @"lng": [NSNumber numberWithFloat: [[options objectForKey:@"lon"] floatValue]], @"page": @"oldLocation"} completion:^(NSString *imageURL, NSString *adURL) {
+        
         self.AdURL = adURL;
         
         if (imageURL) {

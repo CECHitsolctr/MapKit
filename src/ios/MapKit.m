@@ -225,7 +225,7 @@
 
 - (void)hideMap:(CDVInvokedUrlCommand *)command
 {
-    if (!self.mapView || self.childView.hidden==YES) 
+    if (!self.mapView || self.childView.hidden == YES)
 	{
 		return;
 	}

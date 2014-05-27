@@ -71,7 +71,7 @@ In case everything miserably fails and you can't build your project, you might n
         <framework src="MapKit.framework" />
         <framework src="QuartzCore.framework" />
         
-        <resource-file src="src/ios/icon.png" />
+        <resource-file src="src/ios/crosshair_orange.png" />
         <resource-file src="src/ios/SVProgressHUD/SVProgressHUD-Prefix.pch" />
         <resource-file src="src/ios/SVProgressHUD/SVProgressHUD.bundle" />
         

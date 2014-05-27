@@ -146,7 +146,7 @@
 {
 	if (self.mapView)
 	{
-		[ self.mapView removeAnnotations:mapView.annotations];
+		[ self.mapView removeAnnotations:self.mapView.annotations];
 		[ self.mapView removeFromSuperview];
 
 		self.mapView = nil;
